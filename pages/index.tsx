@@ -1,3 +1,4 @@
+import React from "react";
 import Head from 'next/head'
 import Layout from "../components/layout";
 
@@ -9,8 +10,8 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico"/>
 			</Head>
 
-			<main>
-				<h1 className="title">
+			<main className='text-center'>
+				<h1 className="font-semibold text-5xl">
 					Welcome to <a href="https://nextjs.org">Next.js!</a>
 				</h1>
 
@@ -32,6 +33,7 @@ export default function Home() {
 					<a
 						href="https://github.com/vercel/next.js/tree/master/examples"
 						className="card"
+						role='c'
 					>
 						<h3>Examples &rarr;</h3>
 						<p>Discover and deploy boilerplate example Next.js projects.</p>
@@ -46,6 +48,9 @@ export default function Home() {
 							Instantly deploy your Next.js site to a public URL with Vercel.
 						</p>
 					</a>
+				</div>
+				<div role={'button'}>
+					Hi
 				</div>
 			</main>
 
