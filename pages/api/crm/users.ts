@@ -1,0 +1,175 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+
+/**
+ * Random validation for national registry.
+ * @param _
+ * @param res
+ */
+export default (_: NextApiRequest, res: NextApiResponse) => {
+	const limit = +(_.query.limit as string) || 100;
+	res.status(200).json({ data: list.slice(0, limit) })
+}
+
+const list = [
+	{
+		"id": 1,
+		"first_name": "Ali",
+		"last_name": "Gitthouse",
+		"email": "agitthouse0@artisteer.com",
+		"gender": "Male",
+		"identification": "46-204-9111",
+		"birthdate": "03/14/1992"
+	}, {
+		"id": 2,
+		"first_name": "Alf",
+		"last_name": "Croson",
+		"email": "acroson1@auda.org.au",
+		"gender": "Non-binary",
+		"identification": "79-994-9134",
+		"birthdate": "10/21/1983"
+	}, {
+		"id": 3,
+		"first_name": "Marin",
+		"last_name": "Settle",
+		"email": "msettle2@a8.net",
+		"gender": "Genderqueer",
+		"identification": "01-242-5009",
+		"birthdate": "02/29/1988"
+	}, {
+		"id": 4,
+		"first_name": "Keith",
+		"last_name": "Brandino",
+		"email": "kbrandino3@foxnews.com",
+		"gender": "Female",
+		"identification": "87-596-4946",
+		"birthdate": "09/18/1984"
+	}, {
+		"id": 5,
+		"first_name": "Sacha",
+		"last_name": "Anthony",
+		"email": "santhony4@jigsy.com",
+		"gender": "Male",
+		"identification": "06-328-4309",
+		"birthdate": "05/09/1973"
+	}, {
+		"id": 6,
+		"first_name": "Gayler",
+		"last_name": "Ikin",
+		"email": "gikin5@yolasite.com",
+		"gender": "Female",
+		"identification": "43-169-4108",
+		"birthdate": "04/11/1979"
+	}, {
+		"id": 7,
+		"first_name": "Demetria",
+		"last_name": "Franceschino",
+		"email": "dfranceschino6@cdbaby.com",
+		"gender": "Genderfluid",
+		"identification": "07-397-5080",
+		"birthdate": "10/12/2000"
+	}, {
+		"id": 8,
+		"first_name": "Hilly",
+		"last_name": "MacAleese",
+		"email": "hmacaleese7@globo.com",
+		"gender": "Bigender",
+		"identification": "39-259-8725",
+		"birthdate": "01/28/2011"
+	}, {
+		"id": 9,
+		"first_name": "Julina",
+		"last_name": "Wistance",
+		"email": "jwistance8@google.com.hk",
+		"gender": "Female",
+		"identification": "42-837-5478",
+		"birthdate": "02/23/1988"
+	}, {
+		"id": 10,
+		"first_name": "Edwin",
+		"last_name": "Shetliff",
+		"email": "eshetliff9@livejournal.com",
+		"gender": "Bigender",
+		"identification": "52-080-2710",
+		"birthdate": "04/21/1990"
+	}, {
+		"id": 11,
+		"first_name": "Urbanus",
+		"last_name": "Odell",
+		"email": "uodella@ed.gov",
+		"gender": "Genderqueer",
+		"identification": "19-463-5456",
+		"birthdate": "04/20/1981"
+	}, {
+		"id": 12,
+		"first_name": "Dominique",
+		"last_name": "O'Conor",
+		"email": "doconorb@google.com.br",
+		"gender": "Agender",
+		"identification": "51-192-8520",
+		"birthdate": "01/02/2002"
+	}, {
+		"id": 13,
+		"first_name": "Reginald",
+		"last_name": "Gantz",
+		"email": "rgantzc@blogs.com",
+		"gender": "Genderfluid",
+		"identification": "48-145-8892",
+		"birthdate": "04/28/1999"
+	}, {
+		"id": 14,
+		"first_name": "Royal",
+		"last_name": "Hovard",
+		"email": "rhovardd@wordpress.org",
+		"gender": "Female",
+		"identification": "37-193-7933",
+		"birthdate": "10/04/1986"
+	}, {
+		"id": 15,
+		"first_name": "Diandra",
+		"last_name": "Ick",
+		"email": "dicke@clickbank.net",
+		"gender": "Polygender",
+		"identification": "06-144-0099",
+		"birthdate": "06/16/2000"
+	}, {
+		"id": 16,
+		"first_name": "Philbert",
+		"last_name": "Hawkwood",
+		"email": "phawkwoodf@google.com.au",
+		"gender": "Bigender",
+		"identification": "62-948-5471",
+		"birthdate": "04/10/1981"
+	}, {
+		"id": 17,
+		"first_name": "Camellia",
+		"last_name": "McAne",
+		"email": "cmcaneg@weibo.com",
+		"gender": "Female",
+		"identification": "37-845-1601",
+		"birthdate": "02/11/1988"
+	}, {
+		"id": 18,
+		"first_name": "Albrecht",
+		"last_name": "Tunno",
+		"email": "atunnoh@newyorker.com",
+		"gender": "Agender",
+		"identification": "22-302-1720",
+		"birthdate": "08/14/2002"
+	}, {
+		"id": 19,
+		"first_name": "Lucilia",
+		"last_name": "Birrell",
+		"email": "lbirrelli@smh.com.au",
+		"gender": "Polygender",
+		"identification": "43-999-4065",
+		"birthdate": "11/18/1972"
+	}, {
+		"id": 20,
+		"first_name": "Buffy",
+		"last_name": "Cranson",
+		"email": "bcransonj@psu.edu",
+		"gender": "Female",
+		"identification": "46-428-1737",
+		"birthdate": "01/07/1996"
+	}
+]
