@@ -7,9 +7,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
  */
 export default (_: NextApiRequest, res: NextApiResponse) => {
 	if (_.method === 'POST') {
-		const identification = _.body.id;
-		const valid = identification ? +identification % 2 === 0 : false;
-		res.status(200).json({ valid })
+		const identification = _.body.identification as string;
+		res.status(200).json({ valid: identification.includes('2') })
 	} else {
 		res.status(200).json({ valid: false })
 	}
