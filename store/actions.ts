@@ -27,6 +27,11 @@ export const fetchUserFailure = (error, isServer) => ({
 //#endregion
 
 //#region Check User
+export const checkUserModal = (user?: User) => ({
+	type: types.CHECK_USER_MODAL,
+	payload: { user },
+})
+
 export const checkUserNationalRegistry = (user: User) => ({
 	type: types.CHECK_USER,
 	payload: { user },
@@ -47,9 +52,9 @@ export const checkUserProspectQualification = (user: User) => ({
 	payload: { user },
 })
 
-export const checkUserCanceled = (error) => ({
+export const checkUserCanceled = (error, force = false) => ({
 	type: types.CHECK_USER_CANCELED,
-	payload: { error },
+	payload: { error, force },
 })
 
 //#endregion

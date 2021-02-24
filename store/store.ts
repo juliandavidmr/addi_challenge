@@ -1,12 +1,13 @@
 import { createEpicMiddleware } from "redux-observable";
 import { createLogger } from 'redux-logger'
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore, Store, compose } from "redux";
 import { rootEpic } from "./epics";
 import { useMemo } from "react";
-import { reducer } from "./reducers";
+import { reducer, ReducerArgs } from "./reducers";
 import { StoreGlobalState } from "./storeTypes";
 
-let store;
+declare const window: any;
+let store: Store<StoreGlobalState, ReducerArgs>;
 
 const initStore = (initialState: StoreGlobalState) => {
 	const epicMiddleware = createEpicMiddleware()
@@ -46,7 +47,7 @@ export const initializeStore = (preloadedState: StoreGlobalState) => {
 	return _store
 }
 
-export function useStore(initialState: StoreGlobalState) {
+export function useStore(initialState?: StoreGlobalState) {
 	return useMemo(() => initializeStore(initialState), [ initialState ])
 }
 

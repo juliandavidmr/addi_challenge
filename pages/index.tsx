@@ -2,32 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Head from 'next/head'
 import Layout from "../components/layout";
-import { startFetchingUsers, stopFetchingUsers } from "../store";
+import { checkUserCanceled, checkUserModal, startFetchingUsers, stopFetchingUsers, useStore, useUsers } from "../store";
 import UsersList from '../components/usersList'
 import CheckUser from '../components/checkUser'
 import { User } from "../store";
+import MiniCard from "../components/miniCard";
 
 export default function Home() {
 	const dispatch = useDispatch();
-	const [openedCheckNew, setOpenedCheckNew] = useState(false);
-	const [currentUser, setCurrentUser] = useState(null);
+	const [ currentUser, setCurrentUser ] = useState(null);
+	const { openedModalCheck } = useUsers()
 
 	// @ts-ignore
 	useEffect(() => {
 		dispatch(startFetchingUsers())
 		return () => dispatch(stopFetchingUsers())
-	}, [dispatch]);
+	}, [ dispatch ]);
 
 	function checkUser(user?: User) {
-		setOpenedCheckNew(true);
-		if (user) {
-			setCurrentUser(user);
-		}
+		setCurrentUser(user);
+		dispatch(checkUserModal(user))
 	}
 
-	function closeCheckNewUser() {
-		setOpenedCheckNew(false);
+	function closeCheckNewUser(user: User, force: boolean) {
 		setCurrentUser(null);
+		dispatch(checkUserCanceled(user, force))
 	}
 
 	return (
@@ -38,11 +37,11 @@ export default function Home() {
 			</Head>
 
 			<main className=''>
-				<UsersList onCheckUser={checkUser}/>
-				{ openedCheckNew ? <CheckUser user={currentUser} onClose={closeCheckNewUser} /> : null }
+				<UsersList onCheckUser={ checkUser }/>
+				{ openedModalCheck ? <CheckUser user={ currentUser } onClose={ closeCheckNewUser }/> : null }
 			</main>
 
-			<footer className={'text-center'}>
+			<footer className={ 'text-center' }>
 				<a
 					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
 					target="_blank"

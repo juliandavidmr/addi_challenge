@@ -1,10 +1,10 @@
 import { of } from 'rxjs'
-import { takeUntil, mergeMap, catchError, map } from 'rxjs/operators'
+import { takeUntil, mergeMap, catchError, map, tap } from 'rxjs/operators'
 import { combineEpics, ofType } from 'redux-observable'
 
 import * as actions from './actions'
 import * as types from './actionTypes'
-import { checkJudicialRecords, checkNationalRegistry, checkProspectQualification, getUsers } from "./api";
+import * as api from "./api";
 import { User } from "./storeTypes";
 
 export const fetchUsersEpic = (action$, state$) =>
@@ -24,7 +24,7 @@ export const fetchUserEpic = (action$, state$) =>
 	action$.pipe(
 		ofType(types.FETCH_USER),
 		mergeMap((action: any) =>
-			getUsers()
+			api.getUsers()
 				.pipe(
 					map((response) =>
 						actions.fetchUserSuccess(response.response.data, action.payload.isServer)
@@ -41,12 +41,11 @@ export const fetchUserEpic = (action$, state$) =>
 		)
 	)
 
-
 export const checkUserEpic = (action$, state$) =>
 	action$.pipe(
 		ofType(types.CHECK_USER),
 		mergeMap((action: any) =>
-			checkNationalRegistry((action.payload.user as User).identification)
+			api.checkNationalRegistry((action.payload.user as User).identification)
 				.pipe(
 					map((response) =>
 						response.response.valid ?
@@ -67,32 +66,11 @@ export const checkUserJudicialRecordsEpic = (action$, state$) =>
 	action$.pipe(
 		ofType(types.CHECK_USER_JUDICIAL_RECORDS),
 		mergeMap((action: any) =>
-			checkJudicialRecords(action.payload.user)
+			api.checkJudicialRecords(action.payload.user)
 				.pipe(
 					map((response) =>
 						response.response.valid ?
 							actions.checkUserProspectQualification(action.payload.user)
-							: actions.checkUserCanceled(action.payload.user)
-					),
-					catchError((error) =>
-						of(
-							actions.checkUserCanceled(action.payload.user)
-						)
-					)
-				)
-		)
-	)
-
-
-export const checkUserProspectQualificationEpic = (action$, state$) =>
-	action$.pipe(
-		ofType(types.CHECK_USER_PROSPECT_QUALIFICATION_RECORDS),
-		mergeMap((action: any) =>
-			checkProspectQualification(action.payload.user.identification)
-				.pipe(
-					map((response) =>
-						response.response.valid ?
-							actions.checkUserSuccess(action.payload.user, true)
 							: actions.checkUserCanceled(action.payload.user)
 					),
 					catchError((error) =>
@@ -103,10 +81,45 @@ export const checkUserProspectQualificationEpic = (action$, state$) =>
 	)
 
 
+export const checkUserProspectQualificationEpic = (action$, state$) =>
+	action$.pipe(
+		ofType(types.CHECK_USER_PROSPECT_QUALIFICATION_RECORDS),
+		mergeMap((action: any) =>
+			api.checkProspectQualification(action.payload.user.identification)
+				.pipe(
+					map((response) => {
+						if (response.response.valid) {
+							alert(`Success!! Prospect "${ action.payload.user.email }" fulfills the established prerequisites.`);
+							return actions.checkUserSuccess(action.payload.user, true);
+						}
+						return actions.checkUserCanceled(action.payload.user);
+					}),
+					catchError((error) =>
+						of(actions.checkUserCanceled(action.payload.user))
+					)
+				)
+		)
+	)
+
+export const checkUserCancelledEpic = (action$, state$) =>
+	action$.pipe(
+		ofType(types.CHECK_USER_CANCELED),
+		mergeMap((action: any) =>
+			of({ type: 'PONG' })
+				.pipe(
+					tap((response) => {
+						!action.payload.force ? alert(`Oops! The prospectus does not fulfill the minimum requirements.`) : void 0;
+					})
+				)
+		)
+	)
+
+
 export const rootEpic = combineEpics(
 	fetchUsersEpic,
 	fetchUserEpic,
 	checkUserEpic,
 	checkUserJudicialRecordsEpic,
-	checkUserProspectQualificationEpic
+	checkUserProspectQualificationEpic,
+	checkUserCancelledEpic
 )

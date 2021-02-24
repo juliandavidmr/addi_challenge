@@ -1,5 +1,7 @@
 export interface StoreGlobalState {
 	users: User[],
+	lastUpdatedUser: User;
+	openedModalCheck: boolean;
 	isFetchedOnServer: boolean,
 	error: any,
 }

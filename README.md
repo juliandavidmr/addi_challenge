@@ -8,8 +8,6 @@
 3. Our internal prospect qualification system gives a satisfactory score for that person. This system outputs a random
    score between 0 and 100. **A lead could be turned into prospect if the score is greater than 60.**
 
-### Dependencies
-
 ### Data
 
 #### Client basic personal information
