@@ -3,10 +3,7 @@ import Head from 'next/head'
 
 export const siteTitle = 'ADDI Challenge'
 
-export default function Layout({ children, home }: {
-	children: React.ReactNode
-	home?: boolean
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<Head>
@@ -24,7 +21,7 @@ export default function Layout({ children, home }: {
 				<meta name="og:title" content={ siteTitle }/>
 				<meta name="twitter:card" content="summary_large_image"/>
 			</Head>
-			<main className='container mx-auto'>{ children }</main>
+			<main>{ children }</main>
 		</>
 	)
 }

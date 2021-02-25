@@ -105,7 +105,7 @@ export const checkUserCancelledEpic = (action$, state$) =>
 	action$.pipe(
 		ofType(types.CHECK_USER_CANCELED),
 		mergeMap((action: any) =>
-			of({ type: 'PONG' })
+			of({ type: 'NONE' })
 				.pipe(
 					tap((response) => {
 						!action.payload.force ? alert(`Oops! The prospectus does not fulfill the minimum requirements.`) : void 0;

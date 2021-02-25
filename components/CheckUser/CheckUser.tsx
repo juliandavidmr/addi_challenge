@@ -1,7 +1,7 @@
-import { User, useUsers } from "../store";
+import { User, useUsers } from "../../store";
 import { FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { checkUserNationalRegistry } from "../store";
+import { checkUserNationalRegistry } from "../../store";
 
 interface CheckNewUserArgs {
 	onClose: (user: User, force: boolean) => void;
@@ -26,6 +26,7 @@ function CheckUser({ onClose, user }: CheckNewUserArgs) {
 				gender: "",
 				identification: "",
 				approved: false,
+				phone: ''
 			}
 		}
 

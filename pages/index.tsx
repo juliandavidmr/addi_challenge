@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Head from 'next/head'
-import Layout from "../components/layout";
-import { checkUserCanceled, checkUserModal, startFetchingUsers, stopFetchingUsers, useStore, useUsers } from "../store";
-import UsersList from '../components/usersList'
-import CheckUser from '../components/checkUser'
+import Layout from "../components/Layout/Layout";
+import { checkUserCanceled, checkUserModal, startFetchingUsers, stopFetchingUsers, useUsers } from "../store";
+import UsersList from '../components/UsersList/UsersList'
+import CheckUser from '../components/CheckUser/CheckUser'
 import { User } from "../store";
-import MiniCard from "../components/miniCard";
+import SideBar, { SideBarOptions } from "../components/SideBar/SideBar";
+import Prospects from "../components/Prospects/Prospects";
 
 export default function Home() {
 	const dispatch = useDispatch();
+	const [ currentTab, setCurrentTab ] = useState(SideBarOptions.AVAILABLE_CLIENTS);
 	const [ currentUser, setCurrentUser ] = useState(null);
-	const { openedModalCheck } = useUsers()
+	const { users, prospects, error, openedModalCheck } = useUsers()
 
 	// @ts-ignore
 	useEffect(() => {
@@ -29,6 +31,21 @@ export default function Home() {
 		dispatch(checkUserCanceled(user, force))
 	}
 
+	function selectItemPage(item: string) {
+		setCurrentTab(item)
+	}
+
+	function renderContent() {
+		switch (currentTab) {
+			case SideBarOptions.PROSPECTS:
+				return (<Prospects prospects={prospects} />);
+			case SideBarOptions.AVAILABLE_CLIENTS:
+				return (<UsersList users={users} onCheckUser={ checkUser }/>);
+			default:
+				return <div>Empty</div>
+		}
+	}
+
 	return (
 		<Layout>
 			<Head>
@@ -36,10 +53,16 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico"/>
 			</Head>
 
-			<main className=''>
-				<UsersList onCheckUser={ checkUser }/>
-				{ openedModalCheck ? <CheckUser user={ currentUser } onClose={ closeCheckNewUser }/> : null }
-			</main>
+			<div className='flex'>
+				<div className={'flex-auto'}>
+					<SideBar users={users} prospects={prospects} onSelectItem={selectItemPage} />
+				</div>
+				<div className='flex-auto container mx-auto'>
+					{ renderContent() }
+				</div>
+			</div>
+
+			{ openedModalCheck ? <CheckUser user={ currentUser } onClose={ closeCheckNewUser }/> : null }
 
 			<footer className={ 'text-center' }>
 				<a

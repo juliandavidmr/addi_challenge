@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useUsers } from "../store";
-import { User } from "../store";
+import { User } from "../../store";
 
 interface UsersListArgs {
+	users: User[],
 	onCheckUser: (user?: User) => void
 }
 
@@ -12,13 +12,8 @@ const FILTER = {
 	PROSPECT_STAGE: 2
 };
 
-function UserList({ onCheckUser }: UsersListArgs) {
-	const { users, error } = useUsers();
+function UserList({ users, onCheckUser }: UsersListArgs) {
 	const [ currentFilter, setCurrentFilter ] = useState(FILTER.ALL);
-
-	if (error) {
-		return (<div className={ '' }>Error</div>)
-	}
 
 	function changeFilter(e: any) {
 		setCurrentFilter(e.target.value)

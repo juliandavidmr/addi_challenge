@@ -18,7 +18,8 @@ const list = [
 		"email": "agitthouse0@artisteer.com",
 		"gender": "Male",
 		"identification": "46-204-9111",
-		"birthdate": "1992-03-14"
+		"birthdate": "1992-03-14",
+		"phone": "+573144763283"
 	}, {
 		"id": 2,
 		"first_name": "Alf",
