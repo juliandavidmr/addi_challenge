@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 /**
- * Random validation for national registry.
+ * Check prospects qualification.
  * @param _
  * @param res
  */

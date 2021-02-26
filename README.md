@@ -47,7 +47,7 @@
 
 ## API
 
-API built using Next.js API folder:
+API built using Next.js `/api` folder:
 
 | # | Endpoint                            | Method | Params/Body      | Description                             |
 |---|-------------------------------------|--------|------------------|-----------------------------------------|
