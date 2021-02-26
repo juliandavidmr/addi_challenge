@@ -1,3 +1,4 @@
+import React from "react";
 import SideBarItem from "./SideBarItem";
 import { User } from "../../store";
 

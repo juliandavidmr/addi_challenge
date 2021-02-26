@@ -1,7 +1,7 @@
 import * as Actions from "./actionTypes";
 import { StoreGlobalState, User } from "./storeTypes";
 
-const INITIAL_STATE: StoreGlobalState = {
+export const INITIAL_STATE: StoreGlobalState = {
 	users: [],
 	openedModalCheck: false,
 	lastUpdatedUser: null,

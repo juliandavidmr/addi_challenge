@@ -88,7 +88,7 @@ export const checkUserProspectQualificationEpic = (action$, state$) =>
 			api.checkProspectQualification(action.payload.user.identification)
 				.pipe(
 					map((response) => {
-						if (response.response.valid) {
+						if (response.response.qualification > 60) {
 							alert(`Success!! Prospect "${ action.payload.user.email }" fulfills the established prerequisites.`);
 							return actions.checkUserSuccess(action.payload.user, true);
 						}
