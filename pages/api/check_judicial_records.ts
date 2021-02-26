@@ -6,5 +6,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
  * @param res
  */
 export default (_: NextApiRequest, res: NextApiResponse) => {
-	res.status(200).json({ valid: true })
+	if (_.method === 'POST') {
+		const identification = _.body.identification as string;
+		res.status(200).json({ valid: !!identification })
+	} else {
+		res.status(200).json({ valid: false })
+	}
 }
